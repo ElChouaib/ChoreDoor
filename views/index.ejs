@@ -6,8 +6,9 @@
     <title>ChoreDoor</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Work+Sans">
-    <script src="js/game.js"></script>
-    <script src="js/user.js"></script>
+   <script src="js/game.js"></script>
+     <!-- <script src="js/user.js"></script> -->
+
 </head>
 <body>
     <div class="header">
@@ -38,19 +39,19 @@
         </tr>
     </table>
     <div class="door-row">
-        <img class="door-frame" src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg" id="door1" onclick="open()">
-        <img class="door-frame" src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg" id="door2">
-        <img class="door-frame" src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg" id="door3">
-    </div>
+        <img class="door-frame" src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg" id="door1" onclick="openDoor(this)">
+        <img class="door-frame" src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg" id="door2" onclick="openDoor(this)">
+        <img class="door-frame" src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg" id="door3" onclick="openDoor(this)">
+    <div/>
 
-    <div class="start-row" id="start">Good luck!</div>
+    <div class="start-row" id="start" onclick="reset()">Good luck!</div>
     <table class="score-row">
         <tr>
           <th class="score-text">Current streak:</th>
           <th class="score-text">Best streak:</th>
         </tr>
         <tr>
-          <th class="score-box" id="score-number"><%= currentStreak%></th>
+          <th class="score-box" id="score-number">0</th>
           <th class="score-box" id="high-score-number">0</th>
         <tr>
       </table>
