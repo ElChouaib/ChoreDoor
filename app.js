@@ -1,8 +1,19 @@
 //imports 
 
 const express = require('express')
+const bodyparser = require('body-parser')
+const connectDB = require('./DB/connection')
+const MyRouter = require('./routes/routes')
+
+
 const app = express()
 const port = 3000
+
+
+// mongoose
+connectDB();
+app.use('/api/usermodel', require('./Api/User'))
+
 
 
 //Static Files
@@ -17,13 +28,9 @@ app.use('/img', express.static(__dirname + 'public/img'))
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
+app.use(MyRouter);
 
-app.get('', (req, res) =>{
-    res.render('index')
-})
-app.get('/about', (req, res) =>{
-    res.render('about', { text:'chouaib'})
-})
+
 
 // Listen on port 3000
-app.listen(port, ()=> console.info('Listening on port '+port))
+app.listen(port, ()=> console.info('open: <localhost:'+port+ '> in your browser'))

@@ -21,16 +21,16 @@ let closedDoor = {
 
 let doors = [
     {
-        id:"door1",
-        opened: false
+        name:"door1",
+        closed: true
     },
     {
-        id:"door2",
-        opened: false
+        name:"door2",
+        closed: true
     },
     {
-        id:"door3",
-        opened: false
+        name:"door3",
+        closed: true
     }
 ]
 
@@ -46,13 +46,13 @@ function getRandomInt(max) {
 
 function openDoor(element){
     doorName = element.id;
-    if (!gameOver && !isOpened(doorName))
+    console.log('door is closed ? :'+ isClosed(doorName));
+    if (gameOver == 0 && isClosed(doorName))
     {
         let randomChoice = getRandomInt(doorSourceLength);
         let ImageName = imgSources[randomChoice].id;
         document.getElementById(doorName).src = imgSources[randomChoice].src;
-        matchDoor(doorName)
-
+        setDoorOpen(doorName)
         imgSources.splice(randomChoice,1);
         doorSourceLength--;
 
@@ -67,18 +67,19 @@ function openDoor(element){
     }
 }
 
-function matchDoor(doorName){
+function setDoorOpen(doorName){
     doors.forEach(d => {
-        if (d.id == doorName)
-            d.opened = true
+        if (d.name == doorName)
+            d.closed = false;
     })
 }
 
-function isOpened(doorName){
+function isClosed(doorName){
     doors.forEach(d => {
-        if (d.id == doorName)
+        if (d.name == doorName)
         {
-            return d.opened;
+            console.log(d.closed)
+            return (d.closed);
         }
     })
 }
@@ -117,8 +118,10 @@ function reset(){
             src:"https://content.codecademy.com/projects/chore-door/images/robot.svg",
         }
     ];
+    doors.forEach(d => d.opened = false)
     document.getElementById('door1').src = closedDoor.src;
     document.getElementById('door2').src = closedDoor.src;
     document.getElementById('door3').src = closedDoor.src;
     document.getElementById('start').innerHTML = 'Good luck!';
+    
 }
