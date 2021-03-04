@@ -45,6 +45,8 @@ app.use('/img', express.static(__dirname + 'public/img'))
 //Set views
 app.set('views', './views')
 app.set('view engine', 'ejs')
+app.use(bodyParser.json()); // <--- Here
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(MyRouter);
 

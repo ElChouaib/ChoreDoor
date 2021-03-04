@@ -1,3 +1,5 @@
+
+
 let imgSources = [
     {
         id:"space",
@@ -45,6 +47,7 @@ function getRandomInt(max) {
   }
 
 function openDoor(element){
+    
     doorName = element.id;
     if (gameOver == 0 && isClosed(doorName))
     {
@@ -79,13 +82,18 @@ function isClosed(doorName){
 }
 
 function youWin(){
-    BestSteak = parseInt(document.getElementById("high-score-number").innerHTML);
-    console.log('best ->' + BestSteak);
-    
+    BestSteak = parseInt(document.getElementById("high-score-number").innerHTML);   
     currentSteak++;
     if (currentSteak > BestSteak){
         //Post request to edit database
         BestSteak = currentSteak;
+        var id  =document.getElementById("username");
+        axios.post('/update', {id :id.innerHTML, score:BestSteak})
+          .then((response) => {
+            console.log(response);
+          }, (error) => {
+            console.log(error);
+          });
     }
         
     

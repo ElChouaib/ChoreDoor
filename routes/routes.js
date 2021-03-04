@@ -5,7 +5,8 @@ const User =  require("../model/user");
 const passport = require('passport')
 const bodyparser = require('body-parser')
 const bcrypt = require('bcrypt');
-
+const {LocalStorage} = require('node-localstorage');
+  localStorage = new LocalStorage('./scratch')
 //Get ROUTER
 
 router.get("/game",isLoggedIn ,(req,res) =>{
@@ -33,7 +34,20 @@ router.post("/register", async(req,res)=>{
     })
 })
 
-
+router.post("/update", async (req,res) =>{
+    const id = req.body.id;
+    const score = req.body.score;
+    try {
+       /* const user = await User.findOne({_id : id.trim()});
+        console.log(user);*/
+        await User.updateOne({_id: id.trim()}, {$set:{bestScore: score}});
+        res.send("updated successfully");
+    } catch (error) {
+        console.log(error)
+        res.status(400).send("something went wrong")
+    }
+    
+})
 router.get('/login',(req, res) =>{
     res.render('login')
 })
@@ -53,10 +67,11 @@ router.get("/logout",(req,res)=>{
 });
 
 function isLoggedIn(req,res,next) {
+    console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
-        let data = req.user;        
+        let data = req.user;   
         res.render('game', {data: data})
     }
-    res.redirect("/login");
+    else res.render('login');
 }
 module.exports = router;

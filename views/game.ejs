@@ -11,10 +11,11 @@
 
 </head>
 <body>
+  <span id="username" style="display: none;"> <%= data._id %>  </span>
     <div class="header">
         <img class="logo" src="https://content.codecademy.com/projects/chore-door/images/logo.svg">
         <h4 class="title"> 
-        <a href="/logout">Logout</a>    
+        <a style="float: right" href="/logout">Logout</a>    
       </h4>
     </div>
     <div class="first-row">
@@ -58,5 +59,6 @@
           <th class="score-box" id="high-score-number"><%= data.bestScore %></th>
         <tr>
       </table>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
 </html>
