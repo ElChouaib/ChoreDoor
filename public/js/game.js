@@ -38,7 +38,7 @@ let doorSourceLength = 3;
 let gameOver = 0;
 
 let currentSteak = 0;
-let BestSteak = 0;
+let BestSteak = 0
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
@@ -79,14 +79,18 @@ function isClosed(doorName){
 }
 
 function youWin(){
+    BestSteak = parseInt(document.getElementById("high-score-number").innerHTML);
+    console.log('best ->' + BestSteak);
+    
     currentSteak++;
     if (currentSteak > BestSteak){
+        //Post request to edit database
         BestSteak = currentSteak;
-        
     }
         
+    
     document.getElementById("score-number").innerHTML = currentSteak.toString();
-    document.getElementById("high-score-number").innerHTML = currentSteak.toString();
+    document.getElementById("high-score-number").innerHTML = BestSteak.toString();
     document.getElementById("start").innerHTML = "You win! Play again?"
 }
 
