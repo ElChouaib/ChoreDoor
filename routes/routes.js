@@ -38,11 +38,13 @@ router.get('/login',(req, res) =>{
     res.render('login')
 })
 
+router.get('*',(req, res) =>{
+    res.redirect('/login')
+})
 router.post("/login",passport.authenticate("local",{
     successRedirect:"/game",
     failureRedirect:"/login"
 }),function (req, res){
-    console.log('anything');
 });
 
 router.get("/logout",(req,res)=>{
@@ -52,7 +54,8 @@ router.get("/logout",(req,res)=>{
 
 function isLoggedIn(req,res,next) {
     if(req.isAuthenticated()){
-        res.render('/game')
+        let data = req.user;        
+        res.render('game', {data: data})
     }
     res.redirect("/login");
 }

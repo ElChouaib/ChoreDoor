@@ -46,7 +46,6 @@ function getRandomInt(max) {
 
 function openDoor(element){
     doorName = element.id;
-    console.log('door is closed ? :'+ isClosed(doorName));
     if (gameOver == 0 && isClosed(doorName))
     {
         let randomChoice = getRandomInt(doorSourceLength);
@@ -69,25 +68,23 @@ function openDoor(element){
 
 function setDoorOpen(doorName){
     doors.forEach(d => {
-        if (d.name == doorName)
+        if (d.name.endsWith(doorName.toString()))
             d.closed = false;
     })
 }
 
 function isClosed(doorName){
-    doors.forEach(d => {
-        if (d.name == doorName)
-        {
-            console.log(d.closed)
-            return (d.closed);
-        }
-    })
+    const selectedoor = doors.filter(d => d.name.endsWith(doorName.toString()));
+    return selectedoor[0].closed;
 }
 
 function youWin(){
     currentSteak++;
-    if (currentSteak > BestSteak)
+    if (currentSteak > BestSteak){
         BestSteak = currentSteak;
+        
+    }
+        
     document.getElementById("score-number").innerHTML = currentSteak.toString();
     document.getElementById("high-score-number").innerHTML = currentSteak.toString();
     document.getElementById("start").innerHTML = "You win! Play again?"
@@ -118,10 +115,15 @@ function reset(){
             src:"https://content.codecademy.com/projects/chore-door/images/robot.svg",
         }
     ];
-    doors.forEach(d => d.opened = false)
+    doors.forEach(d => d.closed = true)
     document.getElementById('door1').src = closedDoor.src;
     document.getElementById('door2').src = closedDoor.src;
     document.getElementById('door3').src = closedDoor.src;
     document.getElementById('start').innerHTML = 'Good luck!';
     
+}
+
+function incrementBestScore(){
+    console.log('l');
+   // $.post('/changeScore', {score:})
 }
